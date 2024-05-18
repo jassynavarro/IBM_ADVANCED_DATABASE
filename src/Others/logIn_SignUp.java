@@ -1,4 +1,6 @@
-package ibm_project;
+package Others;
+
+import ibm_project.logIn;
 
 public class logIn_SignUp {
 

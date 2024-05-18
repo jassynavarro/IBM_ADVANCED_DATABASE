@@ -1,4 +1,4 @@
-package ibm_project;
+package Others;
 
 public class homePage extends javax.swing.JFrame {
 

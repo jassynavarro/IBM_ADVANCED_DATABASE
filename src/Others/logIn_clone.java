@@ -1,6 +1,6 @@
-package ibm_project;
+package Others;
 
-import ibm_project.homePage;
+import Others.homePage;
 import javax.swing.JOptionPane;
 import java.io.*;
 import java.util.Scanner;
