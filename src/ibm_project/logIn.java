@@ -181,9 +181,7 @@ public class logIn extends javax.swing.JFrame {
         if(email.getText().equals("")){
             email.setText("Email");
         }
-        else {
-            email.selectAll();
-        }
+        
     }//GEN-LAST:event_emailFocusLost
 
     private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
