@@ -85,7 +85,9 @@ public class signUp extends javax.swing.JFrame{
             fw.write(System.getProperty("line.separator"));
             fw.write(System.getProperty("line.separator"));    
             JOptionPane.showMessageDialog(null, "Registration Successful"); 
-            fw.close();                                    
+            fw.close();   
+            
+           
         } catch (Exception e) {
         }
         

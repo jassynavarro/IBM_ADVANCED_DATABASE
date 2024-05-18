@@ -1,8 +1,15 @@
 package ibm_project;
 
-public class logIn extends javax.swing.JFrame {
+import ibm_project.homePage;
+import javax.swing.JOptionPane;
+import java.io.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+public class logIn_clone extends javax.swing.JFrame {
     
-    public logIn() {
+    public logIn_clone() {
         initComponents();
     }
 
@@ -31,7 +38,6 @@ public class logIn extends javax.swing.JFrame {
         setFocusable(false);
         setMinimumSize(new java.awt.Dimension(740, 410));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(500, 420));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(47, 65, 106));
@@ -39,6 +45,11 @@ public class logIn extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pass_icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pass.png"))); // NOI18N
+        pass_icon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pass_iconMouseClicked(evt);
+            }
+        });
         jPanel1.add(pass_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 235, -1, 50));
 
         hide1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
@@ -61,6 +72,24 @@ public class logIn extends javax.swing.JFrame {
         email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         email.setForeground(new java.awt.Color(255, 255, 255));
         email.setBorder(null);
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                emailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                emailFocusLost(evt);
+            }
+        });
+        email.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emailMouseClicked(evt);
+            }
+        });
+        email.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailActionPerformed(evt);
+            }
+        });
         jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 180, 190, 30));
 
         password.setBackground(new java.awt.Color(47, 65, 106));
@@ -68,6 +97,19 @@ public class logIn extends javax.swing.JFrame {
         password.setForeground(new java.awt.Color(255, 255, 255));
         password.setBorder(null);
         password.setName(""); // NOI18N
+        password.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                passwordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                passwordFocusLost(evt);
+            }
+        });
+        password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordActionPerformed(evt);
+            }
+        });
         jPanel1.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 160, 30));
         password.getAccessibleContext().setAccessibleName("");
 
@@ -76,6 +118,11 @@ public class logIn extends javax.swing.JFrame {
         logIn.setForeground(new java.awt.Color(255, 255, 255));
         logIn.setText("LOG IN");
         logIn.setBorder(null);
+        logIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logInActionPerformed(evt);
+            }
+        });
         jPanel1.add(logIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, 140, 40));
         logIn.getAccessibleContext().setAccessibleName("");
 
@@ -102,6 +149,11 @@ public class logIn extends javax.swing.JFrame {
         jPanel1.add(exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 30, 30));
 
         email_icon1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/email.png"))); // NOI18N
+        email_icon1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                email_icon1MouseClicked(evt);
+            }
+        });
         jPanel1.add(email_icon1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 167, -1, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 310, 390));
@@ -131,9 +183,74 @@ public class logIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInActionPerformed
+        
+        //gets the user's input from the email & password text field.
+        String user = email.getText();
+        String pass = password.getText();
+
+        try {
+        //Instantiation of file reader. This reads the content of the txt file.     
+            FileReader fr = new FileReader("users.txt");  
+            Scanner reader = new Scanner(fr);
+            reader.useDelimiter("[,\n]");
+            
+            String em = reader.next();
+            String pw = reader.next();
+            
+            while(reader.hasNext()) {
+        //trims = divides the row into two rows.
+        //One is for the email.
+        //Second is for the password.
+                if(user.equals(em.trim()) && pass.equals(pw.trim())) {
+                    homePage homePageFrame = new homePage();
+                    homePageFrame.setVisible(true);
+                    homePageFrame.pack();
+                    homePageFrame.setLocationRelativeTo(null);  
+                    this.dispose();
+                    break;
+                }
+        //shows message for wrong log in details.        
+                JOptionPane.showMessageDialog(null, "Incorrect Log in Details");
+                break;
+            }                                   
+
+        } catch (IOException e) {
+            
+        }
+    }//GEN-LAST:event_logInActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
+
+    }//GEN-LAST:event_passwordActionPerformed
+
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         System.exit(0);
     }//GEN-LAST:event_exitMouseClicked
+
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
+
+    }//GEN-LAST:event_emailFocusGained
+
+    private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
+
+    }//GEN-LAST:event_passwordFocusGained
+
+    private void emailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusLost
+
+    }//GEN-LAST:event_emailFocusLost
+
+    private void passwordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusLost
+
+    }//GEN-LAST:event_passwordFocusLost
+
+    private void emailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emailMouseClicked
+
+    }//GEN-LAST:event_emailMouseClicked
 
     private void showMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_showMouseClicked
         password.setEchoChar((char)8226);
@@ -143,6 +260,10 @@ public class logIn extends javax.swing.JFrame {
         show.setEnabled(false);     
     }//GEN-LAST:event_showMouseClicked
 
+    private void pass_iconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pass_iconMouseClicked
+
+    }//GEN-LAST:event_pass_iconMouseClicked
+
     private void hide1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hide1MouseClicked
         password.setEchoChar((char)0);
         hide1.setVisible(false);
@@ -150,6 +271,10 @@ public class logIn extends javax.swing.JFrame {
         show.setEnabled(true);
         show.setEnabled(true);
     }//GEN-LAST:event_hide1MouseClicked
+
+    private void email_icon1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_email_icon1MouseClicked
+
+    }//GEN-LAST:event_email_icon1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField email;
