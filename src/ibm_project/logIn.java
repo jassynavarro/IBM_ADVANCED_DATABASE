@@ -35,12 +35,13 @@ public class logIn extends javax.swing.JFrame {
         getContentPane().add(pass_icon, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, 50));
 
         hide1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hide.png"))); // NOI18N
+        hide1.setAlignmentX(0.5F);
         hide1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 hide1MouseClicked(evt);
             }
         });
-        getContentPane().add(hide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 240, 30, 50));
+        getContentPane().add(hide1, new org.netbeans.lib.awtextra.AbsoluteConstraints(638, 239, 30, 50));
 
         show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/visible.png"))); // NOI18N
         show.addMouseListener(new java.awt.event.MouseAdapter() {
