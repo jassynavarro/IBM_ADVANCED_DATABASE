@@ -1,9 +1,18 @@
 package ibm_project;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+        
+
 public class logIn extends javax.swing.JFrame {
+    
+    Connection conn = null;
     
     public logIn() {
         initComponents();
+        conn = DBConnection.ConnectDB("jdbc:mysql://localhost:3306/aybiem", "root", "");
     }
 
     @SuppressWarnings("unchecked")
@@ -100,6 +109,11 @@ public class logIn extends javax.swing.JFrame {
         logIn.setText("LOG IN");
         logIn.setBorder(null);
         logIn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        logIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logInActionPerformed(evt);
+            }
+        });
         getContentPane().add(logIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, 140, 40));
         logIn.getAccessibleContext().setAccessibleName("");
 
@@ -195,6 +209,60 @@ public class logIn extends javax.swing.JFrame {
     private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
+
+    private void logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInActionPerformed
+//        System.out.print("Button clicked");
+
+        String userEmail = email.getText();
+        String userPassword = new String(password.getPassword()); // Convert char[] to String
+        
+        if (userEmail.equals("Email") || userPassword.equals("Password")) {
+            // Show error message
+            javax.swing.JOptionPane.showMessageDialog(this, "Please enter email and password.");
+            return;
+            
+        }
+          // Define the connection parameters
+          String dbUrl = "jdbc:mysql://localhost:3306/aybiem"; // JDBC URL for connecting to the database
+          String dbUser = "root"; // Database username
+          String dbPass = ""; // Database password (blank in this case)
+          
+          try {
+              // Load the MySQL JDBC driver
+              Class.forName("com.mysql.cj.jdbc.Driver");
+              
+              // Establish the connection to the database
+              Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass);
+              System.out.println("Connection successful!");
+              
+              // Prepare the SQL query to check the user's credentials
+              String sql = "SELECT * FROM login WHERE email = ? AND password = ?";
+              PreparedStatement pst = conn.prepareStatement(sql);
+              pst.setString(1, userEmail);
+              pst.setString(2, userPassword);
+              
+              ResultSet rs = pst.executeQuery();
+              
+              if (rs.next()) {
+                // Successful login
+                javax.swing.JOptionPane.showMessageDialog(this, "Login successful!");
+                // Redirect to the next page or perform another action
+               } else {
+                // Login failed
+                javax.swing.JOptionPane.showMessageDialog(this, "Invalid email or password.");
+               }
+            
+               rs.close();
+               pst.close();
+               conn.close();
+              
+          } catch(Exception e){
+              // Handle any exceptions that occur during the database connection or query execution
+              e.printStackTrace();
+              javax.swing.JOptionPane.showMessageDialog(this, "Database connection error: " + e.getMessage());
+              
+          }
+    }//GEN-LAST:event_logInActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField email;
