@@ -237,11 +237,13 @@ public class logIn extends javax.swing.JFrame {
               
               // Prepare the SQL query to check the user's credentials
               String sql = "SELECT * FROM login WHERE email = ? AND password = ?";
-              PreparedStatement pst = conn.prepareStatement(sql);
-              pst.setString(1, userEmail);
-              pst.setString(2, userPassword);
+              //used to safely insert values into the SQL statement.
+              //'?' as placeholders for parameters to be set later
+              PreparedStatement pst = conn.prepareStatement(sql); 
+              pst.setString(1, userEmail); // sets the first placeholder (?) to userEmail
+              pst.setString(2, userPassword); // sets the second placeholder (?) to userPassword
               
-              ResultSet rs = pst.executeQuery();
+              ResultSet rs = pst.executeQuery(); //execute insertion
               
               if (rs.next()) {
                 // Successful login
