@@ -216,7 +216,7 @@ public class logIn extends javax.swing.JFrame {
         String userEmail = email.getText();
         String userPassword = new String(password.getPassword()); // Convert char[] to String
         
-        if (userEmail.equals("Email") || userPassword.equals("Password")) {
+        if (userEmail.isEmpty() || userPassword.isEmpty()) {
             // Show error message
             javax.swing.JOptionPane.showMessageDialog(this, "Please enter email and password.");
             return;
