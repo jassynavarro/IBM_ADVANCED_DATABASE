@@ -1,4 +1,4 @@
-package Others;
+package ibm_project;
 
 import ibm_project.logIn;
 
