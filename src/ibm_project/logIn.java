@@ -61,8 +61,8 @@ public class logIn extends javax.swing.JFrame {
         getContentPane().add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, -1, 30));
 
         email.setBackground(new java.awt.Color(47, 65, 106));
-        email.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        email.setForeground(new java.awt.Color(255, 255, 255));
+        email.setFont(new java.awt.Font("IBM Plex Sans", 0, 14)); // NOI18N
+        email.setForeground(java.awt.Color.white);
         email.setText("Email");
         email.setBorder(null);
         email.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -82,10 +82,11 @@ public class logIn extends javax.swing.JFrame {
 
         password.setBackground(new java.awt.Color(47, 65, 106));
         password.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        password.setForeground(new java.awt.Color(255, 255, 255));
+        password.setForeground(java.awt.Color.white);
         password.setText("Password");
         password.setToolTipText("");
         password.setBorder(null);
+        password.setEchoChar((char)0);
         password.setName(""); // NOI18N
         password.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -174,7 +175,7 @@ public class logIn extends javax.swing.JFrame {
 
     private void passwordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_passwordFocusGained
         // TODO add your handling code here:
-        if(password.getText().equals("Password")){
+        if (password.getText().equals("Password")){
             password.setText("");
             password.setEchoChar((char)8226);
         }
@@ -211,13 +212,11 @@ public class logIn extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void logInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInActionPerformed
-//        System.out.print("Button clicked");
 
         String userEmail = email.getText();
         String userPassword = new String(password.getPassword()); // Convert char[] to String
         
         if (userEmail.isEmpty() || userPassword.isEmpty()) {
-            // Show error message
             javax.swing.JOptionPane.showMessageDialog(this, "Please enter email and password.");
             return;
             
